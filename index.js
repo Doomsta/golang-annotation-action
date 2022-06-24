@@ -6,7 +6,7 @@ const lineReader = require('line-by-line');
 let file = 'mosd/staticcheck.json'
 if (!fs.existsSync(file)) {
     core.warning(
-        `No file was found with the provided path: ${testResultsPath}.`
+        `No file was found with the provided path: ${file}.`
     )
     return
 }
