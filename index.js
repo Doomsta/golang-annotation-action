@@ -1,8 +1,20 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const fs = require('fs');
+const lineReader = require('line-by-line');
 
-try {
-    core.info(`::error file=mosd/internal/model/host.go,line=173,col=5::awesome comment`);
-} catch (error) {
-    core.setFailed(error.message);
+let file = 'mosd/staticcheck.json'
+if (!fs.existsSync(file)) {
+    core.warning(
+        `No file was found with the provided path: ${testResultsPath}.`
+    )
+    return
 }
+
+
+let lr = new lineReader(file);
+lr.on('line', function (line) {
+    const currentLine = JSON.parse(line);
+    core.info(`::error file=${currentLine.location.file},line=${currentLine.location.line},col=${currentLine.location.column}::${currentLine.message}`);
+});
+
