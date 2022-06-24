@@ -25,11 +25,14 @@ const lineReader = require('line-by-line');
         core.warning(`No file was found with the provided path: ${file}.`)
         return
     }
-    const rgx = /^(\w+):\s([^:]+):(\d+):(\d+): (.+)$/;
+    const rgx = /(\w+):\s([^:]+):(\d+):(\d+): (.+)/gi;
 
     let lr = new lineReader(file);
     lr.on('line', function (line) {
         const matches = rgx.exec(line)
+        if (!matches ) {
+            return
+        }
         core.info(`::error file=${matches[2]},line=${matches[3]},col=${matches[4]}::${matches[5]}`);
     });
 })();
