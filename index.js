@@ -31,6 +31,7 @@ const lineReader = require('line-by-line');
     lr.on('line', function (line) {
         const matches = rgx.exec(line)
         if (!matches ) {
+            core.warning(`skip: ${line}.`)
             return
         }
         core.info(`::error file=${matches[2]},line=${matches[3]},col=${matches[4]}::${matches[5]}`);
