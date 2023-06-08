@@ -37,7 +37,7 @@ const lineReader = require('line-by-line');
 (function () {
     const file = 'eslint.json'
     if (!fs.existsSync(file)) {
-        returns
+        return
     }
     const lines = JSON.parse(fs.readFileSync(file, 'utf8'));
     lines.forEach(function (line) {
