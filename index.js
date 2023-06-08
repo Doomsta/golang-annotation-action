@@ -42,10 +42,10 @@ const lineReader = require('line-by-line');
     const lines = JSON.parse(fs.readFileSync(file, 'utf8'));
     lines.forEach(function (line) {
         line.messages.forEach(function (message) {
-            if (line.severity === 1) {
+            if (message.severity === 1) {
                 core.info(`::warning file=${line.filePath},line=${message.line},col=${message.column}::${message.message}`);
             }
-            if (line.severity === 2) {
+            if (message.severity === 2) {
                 core.info(`::error file=${line.filePath},line=${message.line},col=${message.column}::${message.message}`);
             }
         });
